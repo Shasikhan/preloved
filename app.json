@@ -1,0 +1,12 @@
+{
+  "name": "PreLoved",
+  "displayName": "PreLoved",
+  "expo": {
+    "name": "PreLoved",
+    "slug": "PreLoved",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
