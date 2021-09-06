@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -185,6 +186,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(':lottie-react-native')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
@@ -217,3 +219,17 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+preBuild.doFirst {
+    ant.replaceregexp(
+            match: 'import android.support.v4.view.',
+            replace: 'import androidx.core.view.',
+            flags: 'g',
+            byline: true
+    ) {
+        fileset(
+                dir: '../../node_modules/lottie-react-native/src/android/src/main/java/com/airbnb/android/react/lottie/',
+                includes: '*.java'
+        )
+    }
+}
